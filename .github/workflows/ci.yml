@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: "12.x"
       - run: npm ci # npm install
+      - run: npm run format
       - run: npm run format:check
       - run: npm test -- --coverage
         env:
@@ -26,6 +27,6 @@ jobs:
       - name: Deploy to Staging
         if: github.event_name == 'push'
         run: npx surge --project ./build --domain dapper-hammer.surge.sh
-        env: 
+        env:
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
